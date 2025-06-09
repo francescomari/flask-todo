@@ -1,0 +1,81 @@
+{#
+This file is not a simple HTML file, but it's actually a Jinja template. In this
+file, template statements are surrounded by {% and %}, and variables are
+included in the final output by surrounding them with {{ and }}. This is a
+comment, and will not be included in the final output. For more details about
+Jinja templates, see:
+
+https://jinja.palletsprojects.com/en/stable/templates/
+#}
+<!doctype html>
+<html>
+
+<head>
+  <title>To-Do List</title>
+  {#
+  When outputting a value with {{ and }}, you can put within those symbols a
+  simple variable or a more complicated expression (like a function call). When
+  using Jinja with Flask, the function `url_for()` is always available in templates.
+  
+  While in our Python code we used `url_for()` to get the URL for a handler, in
+  this example we use it to get the URL of a static file. Static files are
+  stored in the `static/` directory in your application, and are automatically
+  returned by a handler called `static`. That is, every Flask app automatically
+  registers a handler called `static` whose only job is to return the assets
+  from the `static/` directory. For more information about static files, see:
+  
+  https://flask.palletsprojects.com/en/stable/quickstart/#static-files
+  #}
+  <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}">
+</head>
+
+<body>
+  <h1>To-Do List</h1>
+
+  {#
+  You can conditionally render part of a template using an if/endif or
+  if/else/endif statement. This statement is used by Jinja to detect which part
+  of the template to output depending on a condition. In this example, if the
+  list of to-do items is empty, we output a message to the user. For more
+  information about if/endif, see:
+  
+  https://jinja.palletsprojects.com/en/stable/templates/#if
+  
+  The list of to-do items is expected to be in the `todos` variable. Whenever
+  you call this template, you need to populate `todos` with a list of to-do
+  items. Look at how we render this template from the `index()` function.
+  
+  Templates can also render the same content multiple times with the for/endfor
+  statement. This is useful when, like in our case, we have a list of "things"
+  and we want to render very similar output for each of these "things".
+  
+  Like in Python, every item in the `todos` list is saved in the `todo`
+  variable, which is updated at every iteration. Moreover, within a loop, Jinja
+  defines a special `loop` variable that gives some information about the
+  current iteration. For example, `loop.index0` is the 0-based index of the
+  current iteration. For more information about for/endfor, see:
+  
+  https://jinja.palletsprojects.com/en/stable/templates/#for
+  #}
+  {% if not todos %}
+  <p>No to-dos yet!</p>
+  {% else %}
+  <ul>
+    {% for todo in todos %}
+    <li>
+      {{ todo }}
+      <form method="post" action="{{ url_for('done', index=loop.index0) }}" style="display:inline;">
+        <button type="submit">Done</button>
+      </form>
+    </li>
+    {% endfor %}
+  </ul>
+  {% endif %}
+
+  <form method="post" action="{{ url_for('add') }}">
+    <input name="item" required autofocus>
+    <input type="submit" value="Add">
+  </form>
+</body>
+
+</html>
