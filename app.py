@@ -12,8 +12,8 @@ def index():
     # A template is identified by its path relative from the `templates`
     # directory. Usually, a template needs extra data to correctly render. In
     # this case, we pass the to-do list to the template. Inside the template,
-    # the to-do list is accessible through the `todos` variable.
-    # Flask handles the HTTP GET request and returns the rendered HTML as the response.
+    # the to-do list is accessible through the `todos` variable.  Flask handles
+    # the HTTP GET request and returns the rendered HTML as the response.
     return render_template("index.html", todos=todos)
 
 
@@ -25,14 +25,15 @@ def add():
     #
     # The special variable `request`, imported from the `flask` module,
     # represents the current request processed by your application. This
-    # variable contains all kinds of information about the request, including the
-    # form data that a web `<form>` sends. The `request.form` is a dictionary
-    # that maps the form fields to their corresponding values.
+    # variable contains all kinds of information about the request, including
+    # the form data that a web `<form>` sends. The `request.form` is a
+    # dictionary that maps the form fields to their corresponding values.
     #
     # This function performs just a minimal validation of its input: if the
     # to-do item is empty, nothing is added to the list. In more complex
     # applications, validation on the server-side is very important and usually
-    # a great source of bugs. Always pay attention to how you validate user input on the server!
+    # a great source of bugs. Always pay attention to how you validate user
+    # input on the server!
     #
     # Finally, whether we add a to-do item to the list or not, this handler
     # responds with a 302 Found response, commonly known as a "redirect". When
