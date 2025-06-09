@@ -7,11 +7,13 @@ Jinja templates, see:
 
 https://jinja.palletsprojects.com/en/stable/templates/
 #}
+
 <!doctype html>
 <html>
 
 <head>
   <title>To-Do List</title>
+
   {#
   When outputting a value with {{ and }}, you can put within those symbols a
   simple variable or a more complicated expression (like a function call). When
@@ -27,6 +29,7 @@ https://jinja.palletsprojects.com/en/stable/templates/
   
   https://flask.palletsprojects.com/en/stable/quickstart/#static-files
   #}
+
   <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}">
 </head>
 
@@ -58,6 +61,7 @@ https://jinja.palletsprojects.com/en/stable/templates/
   
   https://jinja.palletsprojects.com/en/stable/templates/#for
   #}
+
   {% if not todos %}
   <p>No to-dos yet!</p>
   {% else %}
@@ -72,6 +76,12 @@ https://jinja.palletsprojects.com/en/stable/templates/
     {% endfor %}
   </ul>
   {% endif %}
+
+  {#
+  Except for the call to `url_for()` to retrieve the URL where new to-do items
+  can be submitted, this is a plain HTML form that will submit a single field
+  named `item`.
+  #}
 
   <form method="post" action="{{ url_for('add') }}">
     <input name="item" required autofocus>
