@@ -17,7 +17,7 @@ app = Flask(__name__)
 # and returns the rendered HTML as the response.
 
 
-@app.route("/")
+@app.get("/")
 def index():
     return render_template("index.html", todos=todos)
 
@@ -53,7 +53,7 @@ def index():
 # https://en.wikipedia.org/wiki/Post/Redirect/Get
 
 
-@app.route("/add", methods=["POST"])
+@app.post("/add")
 def add():
     item = request.form.get("item")
     if item:
@@ -78,7 +78,7 @@ def add():
 # issue a redirect to the index page of the application.
 
 
-@app.route("/done/<int:index>", methods=["POST"])
+@app.post("/done/<int:index>")
 def done(index):
     if 0 <= index < len(todos):
         todos.pop(index)
